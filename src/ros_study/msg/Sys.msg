@@ -1,0 +1,3 @@
+float32 cpu_percent
+float32 virtual_memory_percent
+uint8 disk_free

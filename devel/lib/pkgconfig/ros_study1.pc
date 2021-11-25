@@ -1,0 +1,8 @@
+prefix=/home/hudai/Ros_beauty_salon_group/devel
+
+Name: ros_study1
+Description: Description of ros_study1
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

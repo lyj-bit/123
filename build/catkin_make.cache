@@ -1,0 +1,2 @@
+ros_study:ros_study1
+-DCATKIN_DEVEL_PREFIX=/home/hudai/Ros_beauty_salon_group/devel -DCMAKE_INSTALL_PREFIX=/home/hudai/Ros_beauty_salon_group/install -G Unix Makefiles
