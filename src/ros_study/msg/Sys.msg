@@ -1,3 +1,5 @@
 float32 cpu_percent
 float32 virtual_memory_percent
-uint8 disk_free
+uint64 disk_free
+uint64 net_packets_recv
+float32 coretemp

@@ -1,0 +1,8 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/hudai/Ros_beauty_salon_group/devel/lib/python2.7/dist-packages",
+        "/opt/ros/melodic/lib/python2.7/dist-packages",
+        "/opt/deeproute/chaos/python/lib",
+        "/opt/deeproute/chaos/python/include"
+    ]
+}

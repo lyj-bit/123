@@ -26,12 +26,16 @@ struct Sys_
   Sys_()
     : cpu_percent(0.0)
     , virtual_memory_percent(0.0)
-    , disk_free(0)  {
+    , disk_free(0)
+    , net_packets_recv(0)
+    , coretemp(0.0)  {
     }
   Sys_(const ContainerAllocator& _alloc)
     : cpu_percent(0.0)
     , virtual_memory_percent(0.0)
-    , disk_free(0)  {
+    , disk_free(0)
+    , net_packets_recv(0)
+    , coretemp(0.0)  {
   (void)_alloc;
     }
 
@@ -43,8 +47,14 @@ struct Sys_
    typedef float _virtual_memory_percent_type;
   _virtual_memory_percent_type virtual_memory_percent;
 
-   typedef uint8_t _disk_free_type;
+   typedef uint64_t _disk_free_type;
   _disk_free_type disk_free;
+
+   typedef uint64_t _net_packets_recv_type;
+  _net_packets_recv_type net_packets_recv;
+
+   typedef float _coretemp_type;
+  _coretemp_type coretemp;
 
 
 
@@ -77,7 +87,9 @@ bool operator==(const ::ros_study::Sys_<ContainerAllocator1> & lhs, const ::ros_
 {
   return lhs.cpu_percent == rhs.cpu_percent &&
     lhs.virtual_memory_percent == rhs.virtual_memory_percent &&
-    lhs.disk_free == rhs.disk_free;
+    lhs.disk_free == rhs.disk_free &&
+    lhs.net_packets_recv == rhs.net_packets_recv &&
+    lhs.coretemp == rhs.coretemp;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -134,12 +146,12 @@ struct MD5Sum< ::ros_study::Sys_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "c167532159c4742928a4543c7c3dd1fb";
+    return "6c474b8d8a1c88a0d03e2a77e0dd4bce";
   }
 
   static const char* value(const ::ros_study::Sys_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xc167532159c47429ULL;
-  static const uint64_t static_value2 = 0x28a4543c7c3dd1fbULL;
+  static const uint64_t static_value1 = 0x6c474b8d8a1c88a0ULL;
+  static const uint64_t static_value2 = 0xd03e2a77e0dd4bceULL;
 };
 
 template<class ContainerAllocator>
@@ -160,7 +172,9 @@ struct Definition< ::ros_study::Sys_<ContainerAllocator> >
   {
     return "float32 cpu_percent\n"
 "float32 virtual_memory_percent\n"
-"uint8 disk_free\n"
+"uint64 disk_free\n"
+"uint64 net_packets_recv\n"
+"float32 coretemp\n"
 ;
   }
 
@@ -182,6 +196,8 @@ namespace serialization
       stream.next(m.cpu_percent);
       stream.next(m.virtual_memory_percent);
       stream.next(m.disk_free);
+      stream.next(m.net_packets_recv);
+      stream.next(m.coretemp);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -205,7 +221,11 @@ struct Printer< ::ros_study::Sys_<ContainerAllocator> >
     s << indent << "virtual_memory_percent: ";
     Printer<float>::stream(s, indent + "  ", v.virtual_memory_percent);
     s << indent << "disk_free: ";
-    Printer<uint8_t>::stream(s, indent + "  ", v.disk_free);
+    Printer<uint64_t>::stream(s, indent + "  ", v.disk_free);
+    s << indent << "net_packets_recv: ";
+    Printer<uint64_t>::stream(s, indent + "  ", v.net_packets_recv);
+    s << indent << "coretemp: ";
+    Printer<float>::stream(s, indent + "  ", v.coretemp);
   }
 };
 

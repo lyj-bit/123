@@ -8,14 +8,16 @@ import struct
 
 
 class Sys(genpy.Message):
-  _md5sum = "c167532159c4742928a4543c7c3dd1fb"
+  _md5sum = "6c474b8d8a1c88a0d03e2a77e0dd4bce"
   _type = "ros_study/Sys"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """float32 cpu_percent
 float32 virtual_memory_percent
-uint8 disk_free"""
-  __slots__ = ['cpu_percent','virtual_memory_percent','disk_free']
-  _slot_types = ['float32','float32','uint8']
+uint64 disk_free
+uint64 net_packets_recv
+float32 coretemp"""
+  __slots__ = ['cpu_percent','virtual_memory_percent','disk_free','net_packets_recv','coretemp']
+  _slot_types = ['float32','float32','uint64','uint64','float32']
 
   def __init__(self, *args, **kwds):
     """
@@ -25,7 +27,7 @@ uint8 disk_free"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       cpu_percent,virtual_memory_percent,disk_free
+       cpu_percent,virtual_memory_percent,disk_free,net_packets_recv,coretemp
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -40,10 +42,16 @@ uint8 disk_free"""
         self.virtual_memory_percent = 0.
       if self.disk_free is None:
         self.disk_free = 0
+      if self.net_packets_recv is None:
+        self.net_packets_recv = 0
+      if self.coretemp is None:
+        self.coretemp = 0.
     else:
       self.cpu_percent = 0.
       self.virtual_memory_percent = 0.
       self.disk_free = 0
+      self.net_packets_recv = 0
+      self.coretemp = 0.
 
   def _get_types(self):
     """
@@ -58,7 +66,7 @@ uint8 disk_free"""
     """
     try:
       _x = self
-      buff.write(_get_struct_2fB().pack(_x.cpu_percent, _x.virtual_memory_percent, _x.disk_free))
+      buff.write(_get_struct_2f2Qf().pack(_x.cpu_percent, _x.virtual_memory_percent, _x.disk_free, _x.net_packets_recv, _x.coretemp))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -73,8 +81,8 @@ uint8 disk_free"""
       end = 0
       _x = self
       start = end
-      end += 9
-      (_x.cpu_percent, _x.virtual_memory_percent, _x.disk_free,) = _get_struct_2fB().unpack(str[start:end])
+      end += 28
+      (_x.cpu_percent, _x.virtual_memory_percent, _x.disk_free, _x.net_packets_recv, _x.coretemp,) = _get_struct_2f2Qf().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -88,7 +96,7 @@ uint8 disk_free"""
     """
     try:
       _x = self
-      buff.write(_get_struct_2fB().pack(_x.cpu_percent, _x.virtual_memory_percent, _x.disk_free))
+      buff.write(_get_struct_2f2Qf().pack(_x.cpu_percent, _x.virtual_memory_percent, _x.disk_free, _x.net_packets_recv, _x.coretemp))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -104,8 +112,8 @@ uint8 disk_free"""
       end = 0
       _x = self
       start = end
-      end += 9
-      (_x.cpu_percent, _x.virtual_memory_percent, _x.disk_free,) = _get_struct_2fB().unpack(str[start:end])
+      end += 28
+      (_x.cpu_percent, _x.virtual_memory_percent, _x.disk_free, _x.net_packets_recv, _x.coretemp,) = _get_struct_2f2Qf().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -114,9 +122,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2fB = None
-def _get_struct_2fB():
-    global _struct_2fB
-    if _struct_2fB is None:
-        _struct_2fB = struct.Struct("<2fB")
-    return _struct_2fB
+_struct_2f2Qf = None
+def _get_struct_2f2Qf():
+    global _struct_2f2Qf
+    if _struct_2f2Qf is None:
+        _struct_2f2Qf = struct.Struct("<2f2Qf")
+    return _struct_2f2Qf

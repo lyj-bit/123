@@ -21,6 +21,8 @@ class Sys {
       this.cpu_percent = null;
       this.virtual_memory_percent = null;
       this.disk_free = null;
+      this.net_packets_recv = null;
+      this.coretemp = null;
     }
     else {
       if (initObj.hasOwnProperty('cpu_percent')) {
@@ -41,6 +43,18 @@ class Sys {
       else {
         this.disk_free = 0;
       }
+      if (initObj.hasOwnProperty('net_packets_recv')) {
+        this.net_packets_recv = initObj.net_packets_recv
+      }
+      else {
+        this.net_packets_recv = 0;
+      }
+      if (initObj.hasOwnProperty('coretemp')) {
+        this.coretemp = initObj.coretemp
+      }
+      else {
+        this.coretemp = 0.0;
+      }
     }
   }
 
@@ -51,7 +65,11 @@ class Sys {
     // Serialize message field [virtual_memory_percent]
     bufferOffset = _serializer.float32(obj.virtual_memory_percent, buffer, bufferOffset);
     // Serialize message field [disk_free]
-    bufferOffset = _serializer.uint8(obj.disk_free, buffer, bufferOffset);
+    bufferOffset = _serializer.uint64(obj.disk_free, buffer, bufferOffset);
+    // Serialize message field [net_packets_recv]
+    bufferOffset = _serializer.uint64(obj.net_packets_recv, buffer, bufferOffset);
+    // Serialize message field [coretemp]
+    bufferOffset = _serializer.float32(obj.coretemp, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -64,12 +82,16 @@ class Sys {
     // Deserialize message field [virtual_memory_percent]
     data.virtual_memory_percent = _deserializer.float32(buffer, bufferOffset);
     // Deserialize message field [disk_free]
-    data.disk_free = _deserializer.uint8(buffer, bufferOffset);
+    data.disk_free = _deserializer.uint64(buffer, bufferOffset);
+    // Deserialize message field [net_packets_recv]
+    data.net_packets_recv = _deserializer.uint64(buffer, bufferOffset);
+    // Deserialize message field [coretemp]
+    data.coretemp = _deserializer.float32(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 9;
+    return 28;
   }
 
   static datatype() {
@@ -79,7 +101,7 @@ class Sys {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'c167532159c4742928a4543c7c3dd1fb';
+    return '6c474b8d8a1c88a0d03e2a77e0dd4bce';
   }
 
   static messageDefinition() {
@@ -87,7 +109,9 @@ class Sys {
     return `
     float32 cpu_percent
     float32 virtual_memory_percent
-    uint8 disk_free
+    uint64 disk_free
+    uint64 net_packets_recv
+    float32 coretemp
     `;
   }
 
@@ -116,6 +140,20 @@ class Sys {
     }
     else {
       resolved.disk_free = 0
+    }
+
+    if (msg.net_packets_recv !== undefined) {
+      resolved.net_packets_recv = msg.net_packets_recv;
+    }
+    else {
+      resolved.net_packets_recv = 0
+    }
+
+    if (msg.coretemp !== undefined) {
+      resolved.coretemp = msg.coretemp;
+    }
+    else {
+      resolved.coretemp = 0.0
     }
 
     return resolved;

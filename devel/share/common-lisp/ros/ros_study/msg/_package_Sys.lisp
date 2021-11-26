@@ -5,4 +5,8 @@
           VIRTUAL_MEMORY_PERCENT
           DISK_FREE-VAL
           DISK_FREE
+          NET_PACKETS_RECV-VAL
+          NET_PACKETS_RECV
+          CORETEMP-VAL
+          CORETEMP
 ))

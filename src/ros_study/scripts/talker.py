@@ -9,8 +9,8 @@ import psutil
 print(psutil.cpu_percent())
 print(psutil.virtual_memory().percent)
 print(psutil.disk_usage("/").free)
-print(psutil.net_io_counters())
-print(psutil.sensors_temperatures())
+print(psutil.net_io_counters().packets_recv)
+print(psutil.sensors_temperatures()["coretemp"][0].current)
 
 def talker():
     pub = rospy.Publisher("sys_info", Sys, queue_size=10)
@@ -19,9 +19,11 @@ def talker():
 
     while not rospy.is_shutdown():
         sys = Sys()
-        sys.cpu_percent = 1.1
-        sys.virtual_memory_percent = 2.2
-        sys.disk_free = 9
+        sys.cpu_percent = psutil.cpu_percent()
+        sys.virtual_memory_percent = psutil.virtual_memory().percent
+        sys.disk_free = psutil.disk_usage("/").free
+        sys.net_packets_recv = psutil.net_io_counters().packets_recv
+        sys.coretemp = psutil.sensors_temperatures()["coretemp"][0].current
         rospy.loginfo("edg win")
         pub.publish(sys)
         rate.sleep()
